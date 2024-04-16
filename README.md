@@ -29,7 +29,7 @@ kubectl create secret docker-registry regcred --docker-server=private-registry.n
 ```
 ### Create a new TLS secret named tls-secret
 ```
-  kubectl create secret tls tls-secret --cert=<path/to/tls.cert> --key=<path/to/tls.key>
+kubectl create secret tls tls-secret --cert=<path/to/tls.cert> --key=<path/to/tls.key>
 ```
 ### Model Repository
 If you already have a model repository, you may use that with this Helm chart. If you do not have a model repository, you can make use of the local repo copy located in the at **_/model_repository_** to create an example
