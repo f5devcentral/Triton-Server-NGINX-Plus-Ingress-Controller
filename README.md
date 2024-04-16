@@ -96,7 +96,7 @@ Before deploying the Inference server and NGINX+ Ingress Controller update the `
 
 <img src="./img1.png" alt="Flowers" width="60%">
 
-With the `values` file updated, you are ready to deploy the Helm Chart.
+With the `values.yaml` file updated, you are ready to deploy the Helm Chart.
 ```
 cd <directory containing Chart.yaml>
 helm install mytest .
