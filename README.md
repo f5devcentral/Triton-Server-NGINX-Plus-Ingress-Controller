@@ -22,8 +22,7 @@ git clone https://github.com/f5devcentral/triton-server-ngxin-plus-ingress.git
 cd triton-server-ngxin-plus-ingress
 ```
 #### Create a new NGINX private registry secret
-You will need to use your NGINX Ingress Controller subscription [JWT token](https://docs.nginx.com/nginx-ingress-controller/installation/nic-images/using-the-jwt-token-docker-secret/) to get the NGINX Plus Ingress Controller image. 
-
+You will need to use your NGINX Ingress Controller subscription [JWT token](https://docs.nginx.com/nginx-ingress-controller/installation/nic-images/using-the-jwt-token-docker-secret/) to get the NGINX Plus Ingress Controller image. Create a secret that will be referenced by the NGINX Ingress Controller deployment allowing for automatic image access and pulling.
 
 ```
   kubectl create secret docker-registry regcred --docker-server=private-registry.nginx.com --docker-username=<JWT Token> --docker-password=none [-n nginx-ingress]
