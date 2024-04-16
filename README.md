@@ -25,7 +25,7 @@ cd Triton-Server-NGINX-Plus-Ingress-Controller
 You will need to use your NGINX Ingress Controller subscription [JWT token](https://docs.nginx.com/nginx-ingress-controller/installation/nic-images/using-the-jwt-token-docker-secret/) to get the NGINX Plus Ingress Controller image. Create a secret that will be referenced by the NGINX Ingress Controller deployment allowing for automatic image access and pulling.
 
 ```
-  kubectl create secret docker-registry regcred --docker-server=private-registry.nginx.com --docker-username=<JWT Token> --docker-password=none [-n nginx-ingress]
+kubectl create secret docker-registry regcred --docker-server=private-registry.nginx.com --docker-username=<JWT Token> --docker-password=none [-n nginx-ingress]
 ```
 ### Create a new TLS secret named tls-secret
 ```
