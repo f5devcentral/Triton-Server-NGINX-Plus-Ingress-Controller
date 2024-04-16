@@ -14,16 +14,13 @@ of the inference server you are using.
 enabled](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 This will allow the horizontal pod autoscaler to read custom metrics from the prometheus adapter.
 
-This Helm chart is available from [Triton Inference Server
-GitHub.](https://github.com/triton-inference-server/server)
-
 For more information on Helm and Helm charts, visit the [Helm documentation](https://helm.sh/docs/).
 
-## Quickstart
+## Quick Deploy Instructions
 
 First, clone this repository to a local machine. Then, execute the following commands:
 
-Install helm
+### Install helm
 
 ```
 $ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -31,7 +28,7 @@ $ chmod 700 get_helm.sh
 $ ./get_helm.sh
 ```
 
-Deploy Prometheus and Grafana
+#### Deploy Prometheus and Grafana
 
 ```
 $ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -39,10 +36,11 @@ $ helm repo update
 $ helm install example-metrics --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false prometheus-community/kube-prometheus-stack
 ```
 
-Deploy Triton with default settings
+#### Deploy Triton with default settings
 
 ```
-helm install example ./deploy/k8s-onprem
+cd /triton-server-ngxin-plus-ingress
+helm install example .
 ```
 
 
@@ -71,7 +69,7 @@ copy of the server source repository to create an example
 model repository:
 
 ```
-$ git clone https://github.com/triton-inference-server/server.git
+$ git clone https://github.com/f5devcentral/triton-server-ngxin-plus-ingress.git
 ```
 
 Triton Server needs a repository of models that it will make available
