@@ -29,7 +29,7 @@ global:
 
 # Adjust the tags below for your environment
 tags:
-  autoscaling: false
+  autoscaling: true
   http_fqdn: "triton-http.f5demo.net"
   grpc_fqdn: "triton-grpc.f5demo.net"
   metrics_fqdn: "triton-metrics.f5demo.net"
@@ -47,8 +47,8 @@ serverArgs:
   - '--model-repository=/models/model_repository'
 
 autoscaling:
-  minReplicas: 1
-  maxReplicas: 3
+  minReplicas: 2
+  maxReplicas: 4
   metrics:
     - type: Pods
       pods:

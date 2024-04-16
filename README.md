@@ -88,15 +88,13 @@ the custom metric, be sure to change the values in autoscaling.metrics.
 If autoscaling is disabled, the number of Triton server pods is set to the minReplicas
 variable in `values.yaml`.
 
-### Deploy the Inference Server
-Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.
-
 #### Updating the `values.yaml` file
 Before deploying the Inference server and NGINX+ Ingress Controller update the `values.yaml` specifying your modelRepositoryServer IP and path (*default is '/'*), service FQDNs, and autoscaling preference, (see below).
 
-<img src="./img1.png" alt="Flowers" width="60%">
+<img src="images/img1.png" alt="Flowers" width="60%">
 
-With the `values.yaml` file updated, you are ready to deploy the Helm Chart.
+### Deploy the Inference Server
+Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.  With the `values.yaml` file updated, you are ready to deploy the Helm Chart.
 ```
 cd <directory containing Chart.yaml>
 helm install mytest .
@@ -135,13 +133,15 @@ and see the Grafana login page. Use username=admin and
 password=prom-operator to log in.
 
 An example Grafana dashboard is available -*dashboard.json*- in the repo. Use the
-import function in Grafana to import and view this dashboard.
+import function in Grafana to import and view this dashboard, (see below).
+<img src="images/img3.png" alt="Flowers" width="60%">
 
 Enable port forwarding from the /NGINX Ingress Controller pod to view service access metrics.
 ```
 kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
 ```
-The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html
+The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html, (see below)
+<img src="images/img2.png" alt="Flowers" width="60%">
 
 ### Run a couple sample queries
 If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.  After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
