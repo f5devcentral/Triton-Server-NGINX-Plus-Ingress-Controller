@@ -95,7 +95,7 @@ Before deploying the Inference server and NGINX+ Ingress Controller update the `
 
 <img src="images/img1.png" alt="Flowers" width="60%">
 
-### Deploy the Inference Server
+### Deploy Trition Inference Server & NGINX Plus
 Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.  With the `deploy/values.yaml` file updated, you are ready to deploy the Helm Chart.
 ```
 cd <directory containing Chart.yaml>/deploy
