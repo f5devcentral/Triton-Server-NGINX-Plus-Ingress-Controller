@@ -1,13 +1,8 @@
 # Triton Inference Server and NGINX+ Ingress Controller
 
-This repository includes a Helm chart and instructions for installing NVIDIA Triton
-Inference Server in an on-premises or AWS EC2 Kubernetes cluster. You can also use this
-repository to enable load balancing and autoscaling for your Triton cluster.
+This repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) includes a Helm chart and instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on-premises or cloud-based Kubernetes cluster.  
 
-This guide assumes you already have a functional Kubernetes cluster with support for GPUs.
-See the [NVIDIA GPU Operator documentation](https://docs.nvidia.com/datacenter/cloud-native/kubernetes/install-k8s.html)
-for instructions on how to install Kubernetes and enable GPU access in your Kubernetes cluster.
-You must also have Helm installed (see [Installing Helm](#installing-helm) for instructions). Note the following requirements:
+This guide assumes you already have Helm installed (see [Installing Helm](#installing-helm) for instructions). Note the following requirements:
 
 * To deploy Prometheus and Grafana to collect and display Triton metrics, your cluster must contain sufficient CPU resources to support these services.
 
