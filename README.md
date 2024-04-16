@@ -144,26 +144,23 @@ kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
 The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html
 
 ### Run a couple sample queries
-If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.
+If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.  After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
 ```
 python3 simple_http_infer_client.py -u *<triton server http URL>> --ssl --insecure
 ```
 _**Example:** python3 simple_http_infer_client.py -u triton-http.f5demo.net --ssl --insecure_
 
-After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
-
-
-The 
-
 ## Cleanup
 
 After you have finished using the inference server, you should use Helm to
-delete the deployment.
+delete the deployment.  If you deployed the NFS server use *Kubectl* to remove.
 
 ```
-$ helm list
+helm list
 NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 mytest  default         1               2024-04-15 19:01:31.772857 -0700 PDT    deployed        triton-inference-server-1.0.0   1.0        
 
-$ helm uninstall mytest
+helm uninstall mytest
+
+kubectl delete -f nfs-server.yaml
 ```
