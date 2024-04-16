@@ -1,19 +1,18 @@
 # Triton Inference Server and NGINX+ Ingress Controller
-This repository provide a working example of how NGINX Plus Ingress Controller can provide secure external access -as well as load balancing- to an [NVIDIA Triton Inference Server cluster](https://www.nvidia.com/en-us/ai-data-science/products/triton-inference-server/).  The repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) and includes a Helm chart along with instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on-premises or cloud-based Kubernetes cluster.  
+This repository provide a working example of how NGINX Plus Ingress Controller can provide secure external access -as well as load balancing- to an [NVIDIA Triton Inference Server cluster](https://www.nvidia.com/en-us/ai-data-science/products/triton-inference-server/).  The repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) and includes a Helm chart along with instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on premises or cloud-based Kubernetes cluster.  
 
-This guide assumes you already have Helm installed (see [Installing Helm](#installing-helm) for instructions). Note the following requirements:
+This guide assumes you already have Helm installed (see [Installing Helm](#installing-helm) for instructions).  For more information on Helm and Helm charts, visit the [Helm documentation](https://helm.sh/docs/).  Please note the following requirements:
+
+* The Triton server requires access to a models repository via and external NFS server.  If you already have an NFS server to host the model repository, you may use that with this Helm chart. If you do not, an NFS server (k8s manifest) is included which may be deployed and loaded with the included model repository.
 
 * To deploy Prometheus and Grafana to collect and display Triton metrics, your cluster must contain sufficient CPU resources to support these services.
 
-* To use GPUs for inferencing, your cluster must be configured to contain the desired number of GPU nodes, with
-support for the NVIDIA driver and CUDA version required by the version
-of the inference server you are using.
+* Triton-server works with both CPUs and GPUs.  To use GPUs for inferencing, your cluster must be configured to contain the desired number of GPU nodes, with support for the NVIDIA driver and CUDA version required by the version of the inference server you are using.
 
 * To enable autoscaling, your cluster's kube-apiserver must have the [aggregation layer
 enabled](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 This will allow the horizontal pod autoscaler to read custom metrics from the prometheus adapter.
 
-For more information on Helm and Helm charts, visit the [Helm documentation](https://helm.sh/docs/).
 
 ## Quick Deploy Instructions
 
