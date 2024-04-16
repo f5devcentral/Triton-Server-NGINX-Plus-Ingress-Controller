@@ -38,12 +38,7 @@ model repository:
 Triton Server needs a repository of models that it will make available for inferencing. For this example, we are using an existing NFS server and placing our model files there.  Copy the local _model_repository_ directory onto your NFS server.  Then, add the url or IP address of your NFS server and the server path of your
 model repository to `values.yaml`.
 
-### Deploy Triton with default settings
-
-```
-helm install example .
-```
-## Deploy Prometheus and Grafana
+### Deploy Prometheus and Grafana
 
 The inference server metrics are collected by Prometheus and viewable
 through Grafana. The inference server Helm chart assumes that Prometheus
@@ -67,7 +62,6 @@ your local browser.
 ```
 $ kubectl port-forward service/example-metrics-grafana 8080:80
 ```
-
 Now you should be able to navigate in your browser to localhost:8080
 and see the Grafana login page. Use username=admin and
 password=prom-operator to log in.
@@ -75,7 +69,7 @@ password=prom-operator to log in.
 An example Grafana dashboard is available in dashboard.json. Use the
 import function in Grafana to import and view this dashboard.
 
-## Enable Autoscaling
+### Enable Autoscaling
 To enable autoscaling, ensure that autoscaling tag in `values.yaml`is set to `true`.
 This will do two things:
 
@@ -93,72 +87,22 @@ the custom metric, be sure to change the values in autoscaling.metrics.
 If autoscaling is disabled, the number of Triton server pods is set to the minReplicas
 variable in `values.yaml`.
 
-## Enable Load Balancing
-To enable load balancing, ensure that the loadBalancing tag in `values.yaml`
-is set to `true`. This will do two things:
-
-1. Deploy a Traefik reverse proxy through the [Traefik Helm Chart](https://github.com/traefik/traefik-helm-chart).
-
-2. Configure two Traefik [IngressRoutes](https://doc.traefik.io/traefik/providers/kubernetes-crd/),
-one for http and one for grpc. This will allow the Traefik service to expose two
-ports that will be forwarded to and balanced across the Triton pods.
-
-To choose the port numbers exposed, or to disable either http or grpc, edit the
-configured variables in `values.yaml`.
-
-## Deploy the Inference Server
-
-Deploy the inference server, autoscaler, and load balancer using the default
-configuration with the following commands.
-
-Here, and in the following commands we use the name `example` for our chart.
-This name will be added to the beginning of all resources created during the helm
-installation.
+### Deploy the Inference Server
+Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.
 
 ```
-$ cd <directory containing Chart.yaml>
-$ helm install example .
+cd <directory containing Chart.yaml>
+helm install example .
 ```
-
-Use kubectl to see status and wait until the inference server pods are
-running.
+Use kubectl to see status and wait until the inference server pods are running.
 
 ```
 $ kubectl get pods
 NAME                                               READY   STATUS    RESTARTS   AGE
-example-triton-inference-server-5f74b55885-n6lt7   1/1     Running   0          2m21s
+mytest-triton-inference-server-5f74b55885-n6lt7   1/1     Running   0          2m21s
 ```
 
-There are several ways of overriding the default configuration as
-described in this [Helm
-documentation](https://helm.sh/docs/using_helm/#customizing-the-chart-before-installing).
-
-You can edit the values.yaml file directly or you can use the *--set*
-option to override a single parameter with the CLI. For example, to
-deploy a cluster with a minimum of two inference servers use *--set* to
-set the autoscaler.minReplicas parameter.
-
-```
-$ helm install example --set autoscaler.minReplicas=2 .
-```
-
-You can also write your own "config.yaml" file with the values you
-want to override and pass it to Helm. If you specify a "config.yaml" file, the
-values set will override those in values.yaml.
-
-```
-$ cat << EOF > config.yaml
-namespace: MyCustomNamespace
-image:
-  imageName: nvcr.io/nvidia/tritonserver:custom-tag
-  modelRepositoryPath: gs://my_model_repository
-EOF
-$ helm install example -f config.yaml .
-```
-
-
-
-## Using Triton Inference Server
+### Using Triton Inference Server
 
 Now that the inference server is running you can send HTTP or GRPC
 requests to it to perform inferencing. 
