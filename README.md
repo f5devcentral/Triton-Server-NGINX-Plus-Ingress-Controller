@@ -1,6 +1,5 @@
 # Triton Inference Server and NGINX+ Ingress Controller
-
-This repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) includes a Helm chart and instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on-premises or cloud-based Kubernetes cluster.  
+This repository provide a working example of how NGINX Plus Ingress Controller can provide secure external access -as well as load balancing- to an [NVIDIA Triton Inference Server cluster](https://www.nvidia.com/en-us/ai-data-science/products/triton-inference-server/).  The repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) and includes a Helm chart along with instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on-premises or cloud-based Kubernetes cluster.  
 
 This guide assumes you already have Helm installed (see [Installing Helm](#installing-helm) for instructions). Note the following requirements:
 
@@ -34,6 +33,10 @@ $ ./get_helm.sh
 $ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 $ helm repo update
 $ helm install example-metrics --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false prometheus-community/kube-prometheus-stack
+```
+### Create a new TLS secret named tls-secret
+```
+  kubectl create secret tls tls-secret --cert=path/to/tls.cert --key=path/to/tls.key
 ```
 
 #### Deploy Triton with default settings
@@ -74,9 +77,7 @@ $ git clone https://github.com/f5devcentral/triton-server-ngxin-plus-ingress.git
 
 Triton Server needs a repository of models that it will make available
 for inferencing. For this example, we are using an existing NFS server and
-placing our model files there. See the
-[Model Repository documentation](../../docs/user_guide/model_repository.md) for other
-supported locations.
+placing our model files there. 
 
 Following the [QuickStart](../../docs/getting_started/quickstart.md), download the
 example model repository to your system and copy it onto your NFS server.
