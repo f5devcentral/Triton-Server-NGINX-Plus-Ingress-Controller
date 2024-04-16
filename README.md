@@ -52,8 +52,6 @@ mv /Triton-Server-NGINX-Plus-Ingress-Controller/model_repository /exports
 exit
 ```
 
-
-
 ### Deploy Prometheus and Grafana
 
 The inference server metrics are collected by Prometheus and viewable
@@ -67,23 +65,10 @@ Prometheus can find the inference server metrics in the *example*
 release deployed in a later section.
 
 ```
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-$ helm repo update
-$ helm install example-metrics --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false prometheus-community/kube-prometheus-stack
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install example-metrics --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false prometheus-community/kube-prometheus-stack
 ```
-
-Then port-forward to the Grafana service so you can access it from
-your local browser.
-
-```
-$ kubectl port-forward service/example-metrics-grafana 8080:80
-```
-Now you should be able to navigate in your browser to localhost:8080
-and see the Grafana login page. Use username=admin and
-password=prom-operator to log in.
-
-An example Grafana dashboard is available in dashboard.json. Use the
-import function in Grafana to import and view this dashboard.
 
 ### Enable Autoscaling
 To enable autoscaling, ensure that autoscaling tag in `values.yaml`is set to `true`.
@@ -106,9 +91,14 @@ variable in `values.yaml`.
 ### Deploy the Inference Server
 Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.
 
+#### Updating the `values.yaml` file
+Before deploying the Inference server and NGINX+ Ingress Controller update the `values.yaml` specifying your modelRepositoryServer IP and path (*default is '/'*), service FQDNs, and autoscaling preference, (see below).
+
+<img src="./img1.png" alt="Flowers">
+
 ```
 cd <directory containing Chart.yaml>
-helm install example .
+helm install mytest .
 ```
 Use kubectl to see status and wait until the inference server pods are running.
 
@@ -121,7 +111,7 @@ mytest-triton-inference-server-5f74b55885-n6lt7   1/1     Running   0          2
 ### Using Triton Inference Server
 
 Now that the inference server is running you can send HTTP or GRPC
-requests to it to perform inferencing. 
+requests to it to perform inferencing.
 
 ```
 $ kubectl get svc
@@ -131,7 +121,31 @@ mytest-nginx-ingress-controller          LoadBalancer   10.0.179.216   20.252.89
 mytest-triton-inference-server           ClusterIP      10.0.231.100   <none>         8000/TCP,8001/TCP,8002/TCP   39m
 mytest-triton-inference-server-metrics   ClusterIP      10.0.21.98     <none>         8080/TCP                     39m
 nfs-service                              ClusterIP      10.0.194.248   <none>         2049/TCP,20048/TCP,111/TCP   123m...
+
 ```
+Enable port forwarding from the the Grafana service so you can access it from
+your local browser.
+
+```
+kubectl port-forward service/example-metrics-grafana 8088:80
+```
+Now you should be able to navigate in your browser to 127.0.0.1:8088
+and see the Grafana login page. Use username=admin and
+password=prom-operator to log in.
+
+An example Grafana dashboard is available in *dashboard.json*. Use the
+import function in Grafana to import and view this dashboard.
+
+Enable port forwarding from the /NGINX Ingress Controller pod to view service access metrics.
+```
+kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
+```
+The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html
+
+### Run a couple queries
+The Triton Inference Server cluster is now
+If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.  The 
+
 ## Cleanup
 
 After you have finished using the inference server, you should use Helm to
