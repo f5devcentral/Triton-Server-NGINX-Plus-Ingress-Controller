@@ -147,9 +147,9 @@ The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html
 If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.
 ```
 python3 simple_http_infer_client.py -u *<triton server http URL>> --ssl --insecure
-
-_Example: python3 simple_http_infer_client.py -u triton-http.f5demo.net --ssl --insecure_
 ```
+_Example: python3 simple_http_infer_client.py -u triton-http.f5demo.net --ssl --insecure_
+
 After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
 
 
