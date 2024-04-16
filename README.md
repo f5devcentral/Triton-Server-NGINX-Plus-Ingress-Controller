@@ -1,7 +1,7 @@
 # Triton Inference Server and NGINX+ Ingress Controller
 This repository provide a working example of how NGINX Plus Ingress Controller can provide secure external access -as well as load balancing- to an [NVIDIA Triton Inference Server cluster](https://www.nvidia.com/en-us/ai-data-science/products/triton-inference-server/).  The repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) and includes a Helm chart along with instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on premises or cloud-based Kubernetes cluster.  
 
-<img src="images/arch.png" alt="Flowers" >
+<img src="images/archdiag.png" alt="Flowers" >
 
 This guide assumes you already have Helm installed (see [Installing Helm](#installing-helm) for instructions).  For more information on Helm and Helm charts, visit the [Helm documentation](https://helm.sh/docs/).  Please note the following requirements:
 
