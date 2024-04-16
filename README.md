@@ -14,7 +14,7 @@ enabled](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregatio
 This will allow the horizontal pod autoscaler to read custom metrics from the prometheus adapter.
 
 
-## Quick Deploy Instructions
+# Deployment Instructions
 
 First, clone this repository to a local machine. 
 ```
