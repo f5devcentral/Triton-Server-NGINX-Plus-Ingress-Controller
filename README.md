@@ -94,7 +94,7 @@ Deploy the inference server and NGINX Plus Ingress Controller using the default 
 #### Updating the `values.yaml` file
 Before deploying the Inference server and NGINX+ Ingress Controller update the `values.yaml` specifying your modelRepositoryServer IP and path (*default is '/'*), service FQDNs, and autoscaling preference, (see below).
 
-<img src="./img1.png" alt="Flowers">
+<img src="./img1.png" alt="Flowers" width="200" height="100">
 
 ```
 cd <directory containing Chart.yaml>
@@ -133,7 +133,7 @@ Now you should be able to navigate in your browser to 127.0.0.1:8088
 and see the Grafana login page. Use username=admin and
 password=prom-operator to log in.
 
-An example Grafana dashboard is available in *dashboard.json*. Use the
+An example Grafana dashboard is available -*dashboard.json*- in the repo. Use the
 import function in Grafana to import and view this dashboard.
 
 Enable port forwarding from the /NGINX Ingress Controller pod to view service access metrics.
@@ -143,7 +143,6 @@ kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
 The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html
 
 ### Run a couple queries
-The Triton Inference Server cluster is now
 If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.  The 
 
 ## Cleanup
