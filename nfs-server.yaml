@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-server
+spec:
+  selector:
+    matchLabels:
+      app: nfs-server
+  template:
+    metadata:
+      labels:
+        app: nfs-server
+    spec:
+      containers:
+      - name: nfs-server
+        image: k8s.gcr.io/volume-nfs:latest
+        ports:
+        - name: nfs
+          containerPort: 2049
+        - name: mountd
+          containerPort: 20048
+        - name: rpcbind
+          containerPort: 111
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: models
+          mountPath: /server/docs/examples
+      volumes:
+      - name: models
+        hostPath:
+          path: /data/nfs # store all data in "/data/nfs" directory of the node where it is running
+          type: DirectoryOrCreate # if the directory does not exist then create it
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfs-service
+spec:
+  ports:
+  - name: nfs
+    port: 2049
+  - name: mountd
+    port: 20048
+  - name: rpcbind
+    port: 111
+  selector:
+    app: nfs-server # must match with the label of NFS pod
