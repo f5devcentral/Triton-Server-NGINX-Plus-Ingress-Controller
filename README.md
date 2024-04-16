@@ -143,8 +143,17 @@ kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
 ```
 The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html
 
-### Run a couple queries
-If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.  The 
+### Run a couple sample queries
+If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.
+```
+python3 simple_http_infer_client.py -u *<triton server http URL>> --ssl --insecure
+
+*Example: python3 simple_http_infer_client.py -u triton-http.f5demo.net --ssl --insecure*
+```
+After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
+
+
+The 
 
 ## Cleanup
 
