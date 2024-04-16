@@ -94,7 +94,7 @@ Deploy the inference server and NGINX Plus Ingress Controller using the default 
 #### Updating the `values.yaml` file
 Before deploying the Inference server and NGINX+ Ingress Controller update the `values.yaml` specifying your modelRepositoryServer IP and path (*default is '/'*), service FQDNs, and autoscaling preference, (see below).
 
-<img src="./img1.png" alt="Flowers" width="200" height="100">
+<img src="./img1.png" alt="Flowers" width="75%">
 
 ```
 cd <directory containing Chart.yaml>
