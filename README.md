@@ -1,4 +1,4 @@
-# Triton Inference Server Cluster and NGINX+ Ingress Controller
+# Triton Inference Server and NGINX+ Ingress Controller
 
 This repository includes a Helm chart and instructions for installing NVIDIA Triton
 Inference Server in an on-premises or AWS EC2 Kubernetes cluster. You can also use this
