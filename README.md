@@ -17,29 +17,23 @@ For more information on Helm and Helm charts, visit the [Helm documentation](htt
 
 ## Quick Deploy Instructions
 
-First, clone this repository to a local machine. Then, execute the following commands:
-
-### Install helm
-
+First, clone this repository to a local machine. 
 ```
-$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-$ chmod 700 get_helm.sh
-$ ./get_helm.sh
+git clone https://github.com/f5devcentral/triton-server-ngxin-plus-ingress.git
+cd triton-server-ngxin-plus-ingress
 ```
-
-#### Deploy Prometheus and Grafana
-
-```
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-$ helm repo update
-$ helm install example-metrics --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false prometheus-community/kube-prometheus-stack
-```
-### Create a new TLS secret named tls-secret
+#### Create a new TLS secret named tls-secret
 ```
   kubectl create secret tls tls-secret --cert=path/to/tls.cert --key=path/to/tls.key
 ```
+#### Model Repository
+If you already have a model repository, you may use that with this Helm chart. If you do not have a model repository, you can make use of the local repo copy located in the at **_/model_repository_** to create an example
+model repository:
 
-#### Deploy Triton with default settings
+Triton Server needs a repository of models that it will make available for inferencing. For this example, we are using an existing NFS server and placing our model files there.  Copy the local _model_repository_ directory onto your NFS server.  Then, add the url or IP address of your NFS server and the server path of your
+model repository to `values.yaml`.
+
+### Deploy Triton with default settings
 
 ```
 cd /triton-server-ngxin-plus-ingress
@@ -53,36 +47,6 @@ running server. You can access a Grafana endpoint to see real-time
 metrics reported by the inference server. -->
 
 
-## Installing Helm
-
-### Helm v3
-
-If you do not already have Helm installed in your Kubernetes cluster,
-executing the following steps from the [official Helm install
-guide](https://helm.sh/docs/intro/install/) will
-give you a quick setup.
-
-If you are currently using Helm v2 and would like to migrate to Helm v3,
-see the [official migration guide](https://helm.sh/docs/topics/v2_v3_migration/).
-
-## Model Repository
-If you already have a model repository, you may use that with this Helm
-chart. If you do not have a model repository, you can check out a local
-copy of the server source repository to create an example
-model repository:
-
-```
-$ git clone https://github.com/f5devcentral/triton-server-ngxin-plus-ingress.git
-```
-
-Triton Server needs a repository of models that it will make available
-for inferencing. For this example, we are using an existing NFS server and
-placing our model files there. 
-
-Following the [QuickStart](../../docs/getting_started/quickstart.md), download the
-example model repository to your system and copy it onto your NFS server.
-Then, add the url or IP address of your NFS server and the server path of your
-model repository to `values.yaml`.
 
 
 ## Deploy Prometheus and Grafana
