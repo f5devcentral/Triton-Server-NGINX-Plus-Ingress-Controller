@@ -198,78 +198,22 @@ EOF
 $ helm install example -f config.yaml .
 ```
 
-## Probe Configuration
 
-In `templates/deployment.yaml` is configurations for `livenessProbe`, `readinessProbe` and `startupProbe` for the Triton server container.
-By default, Triton loads all the models before starting the HTTP server to respond to the probes. The process can take several minutes, depending on the models sizes.
-If it is not completed in `startupProbe.failureThreshold * startupProbe.periodSeconds` seconds then Kubernetes considers this as a pod failure and restarts it,
-ending up with an infinite loop of restarting pods, so make sure to sufficiently set these values for your use case.
-The liveliness and readiness probes are being sent only after the first success of a startup probe.
-
-For more details, see the [Kubernetes probe documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) and the [feature page of the startup probe](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/950-liveness-probe-holdoff/README.md).
 
 ## Using Triton Inference Server
 
 Now that the inference server is running you can send HTTP or GRPC
-requests to it to perform inferencing. By default, this chart deploys [Traefik](https://traefik.io/)
-and uses [IngressRoutes](https://doc.traefik.io/traefik/providers/kubernetes-crd/)
-to balance requests across all available nodes.
-
-To send requests through the Traefik proxy, use the Cluster IP of the
-traefik service deployed by the Helm chart. In this case, it is 10.111.128.124.
+requests to it to perform inferencing. 
 
 ```
-$ kubectl get services
-NAME                              TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                    AGE
-...
-example-traefik                   LoadBalancer   10.111.128.124   <pending>     8001:31752/TCP,8000:31941/TCP,80:30692/TCP,443:30303/TCP   74m
-example-triton-inference-server   ClusterIP      None             <none>        8000/TCP,8001/TCP,8002/TCP                                 74m
+$ kubectl get svc
+NAME                                     TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)                      AGE
+kubernetes                               ClusterIP      10.0.0.1       <none>         443/TCP                      10d
+mytest-nginx-ingress-controller          LoadBalancer   10.0.179.216   20.252.89.78   80:31336/TCP,443:31862/TCP   39m
+mytest-triton-inference-server           ClusterIP      10.0.231.100   <none>         8000/TCP,8001/TCP,8002/TCP   39m
+mytest-triton-inference-server-metrics   ClusterIP      10.0.21.98     <none>         8080/TCP                     39m
+nfs-service                              ClusterIP      10.0.194.248   <none>         2049/TCP,20048/TCP,111/TCP   123m...
 ```
-
-Use the following command to refer to the Cluster IP:
-```
-cluster_ip=`kubectl get svc -l app.kubernetes.io/name=traefik -o=jsonpath='{.items[0].spec.clusterIP}'`
-```
-
-
-The Traefik reverse-proxy exposes an HTTP endpoint on port 8000, and GRPC
-endpoint on port 8001 and a Prometheus metrics endpoint on
-port 8002. You can use curl to get the meta-data of the inference server
-from the HTTP endpoint.
-
-```
-$ curl $cluster_ip:8000/v2
-```
-
-Follow the [QuickStart](../../docs/getting_started/quickstart.md) to get the example
-image classification client that can be used to perform inferencing
-using image classification models on the inference
-server. For example,
-
-```
-$ image_client -u $cluster_ip:8000 -m inception_graphdef -s INCEPTION -c3 mug.jpg
-Request 0, batch size 1
-Image 'images/mug.jpg':
-    504 (COFFEE MUG) = 0.723992
-    968 (CUP) = 0.270953
-    967 (ESPRESSO) = 0.00115997
-```
-
-## Testing Load Balancing and Autoscaling
-After you have confirmed that your Triton cluster is operational and can perform inference,
-you can test the load balancing and autoscaling features by sending a heavy load of requests.
-One option for doing this is using the
-[perf_analyzer](https://github.com/triton-inference-server/client/blob/main/src/c++/perf_analyzer/README.md)
-application.
-
-You can apply a progressively increasing load with a command like:
-```
-perf_analyzer -m simple -u $cluster_ip:8000 --concurrency-range 1:10
-```
-
-From your Grafana dashboard, you should be able to see the number of pods increase
-as the load increases, with requests being routed evenly to the new pods.
-
 ## Cleanup
 
 After you have finished using the inference server, you should use Helm to
@@ -277,17 +221,8 @@ delete the deployment.
 
 ```
 $ helm list
-NAME            REVISION  UPDATED                   STATUS    CHART                          APP VERSION   NAMESPACE
-example         1         Wed Feb 27 22:16:55 2019  DEPLOYED  triton-inference-server-1.0.0  1.0           default
-example-metrics	1       	Tue Jan 21 12:24:07 2020	DEPLOYED	prometheus-operator-6.18.0   	 0.32.0     	 default
+NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
+mytest  default         1               2024-04-15 19:01:31.772857 -0700 PDT    deployed        triton-inference-server-1.0.0   1.0        
 
-$ helm uninstall example
-$ helm uninstall example-metrics
-```
-
-For the Prometheus and Grafana services, you should [explicitly delete
-CRDs](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#uninstall-helm-chart):
-
-```
-$ kubectl delete crd alertmanagerconfigs.monitoring.coreos.com alertmanagers.monitoring.coreos.com podmonitors.monitoring.coreos.com probes.monitoring.coreos.com prometheuses.monitoring.coreos.com prometheusrules.monitoring.coreos.com servicemonitors.monitoring.coreos.com thanosrulers.monitoring.coreos.com
+$ helm uninstall mytest
 ```
