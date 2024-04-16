@@ -19,19 +19,19 @@ This will allow the horizontal pod autoscaler to read custom metrics from the pr
 First, clone this repository to a local machine. 
 ```
 git clone https://github.com/f5devcentral/triton-server-ngxin-plus-ingress.git
-cd triton-server-ngxin-plus-ingress
+cd Triton-Server-NGINX-Plus-Ingress-Controller
 ```
-#### Create a new NGINX private registry secret
+### Create a new NGINX private registry secret
 You will need to use your NGINX Ingress Controller subscription [JWT token](https://docs.nginx.com/nginx-ingress-controller/installation/nic-images/using-the-jwt-token-docker-secret/) to get the NGINX Plus Ingress Controller image. Create a secret that will be referenced by the NGINX Ingress Controller deployment allowing for automatic image access and pulling.
 
 ```
   kubectl create secret docker-registry regcred --docker-server=private-registry.nginx.com --docker-username=<JWT Token> --docker-password=none [-n nginx-ingress]
 ```
-#### Create a new TLS secret named tls-secret
+### Create a new TLS secret named tls-secret
 ```
   kubectl create secret tls tls-secret --cert=<path/to/tls.cert> --key=<path/to/tls.key>
 ```
-#### Model Repository
+### Model Repository
 If you already have a model repository, you may use that with this Helm chart. If you do not have a model repository, you can make use of the local repo copy located in the at **_/model_repository_** to create an example
 model repository:
 
@@ -41,19 +41,8 @@ model repository to `values.yaml`.
 ### Deploy Triton with default settings
 
 ```
-cd /triton-server-ngxin-plus-ingress
 helm install example .
 ```
-
-
-<!-- The steps below describe how to set-up a model repository, use Helm to
-launch the inference server, and then send inference requests to the
-running server. You can access a Grafana endpoint to see real-time
-metrics reported by the inference server. -->
-
-
-
-
 ## Deploy Prometheus and Grafana
 
 The inference server metrics are collected by Prometheus and viewable
