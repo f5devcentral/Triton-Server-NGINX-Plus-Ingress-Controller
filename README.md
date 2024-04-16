@@ -165,4 +165,6 @@ mytest  default         1               2024-04-15 19:01:31.772857 -0700 PDT    
 helm uninstall mytest
 
 kubectl delete -f nfs-server.yaml
+kubectl delete secret tls-secret
+kubectl delete secret regcred
 ```
