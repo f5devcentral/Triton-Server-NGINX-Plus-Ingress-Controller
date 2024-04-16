@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: models-volume
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /var/lib/models
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: models-volume-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: manual
+  volumeName: models-volume
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: load-and-check-models
+  labels:
+    name: load-and-check-models
+spec:
+  initContainers:
+  - name: load-triton-models
+    image: ghcr.io/mjmenger/load-models
+    volumeMounts:
+    - name: models-volume
+      mountPath: /models
+  - name: check-models
+    image: ghcr.io/mjmenger/check-models
+    volumeMounts:
+    - name: models-volume
+      mountPath: /models
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"      
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: models-volume
+      mountPath: /models    
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"         
+  volumes:
+  - name: models-volume
+    persistentVolumeClaim:
+      claimName: models-volume-claim

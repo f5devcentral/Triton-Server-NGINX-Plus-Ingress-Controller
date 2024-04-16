@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: nginx-grpc-ingress
+    annotations:
+        nginx.org/grpc-services: {{ template "triton-inference-server.fullname" . }}
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.tags.grpc_fqdn }}
+    secretName: tls-secret
+  rules:
+  - host: {{ .Values.tags.grpc_fqdn }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "triton-inference-server.fullname" . }}
+            port:
+              number: 8001
