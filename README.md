@@ -1,5 +1,5 @@
 # Triton Inference Server and NGINX+ Ingress Controller
-This repository provide a working example of how NGINX Plus Ingress Controller can provide secure external access -as well as load balancing- to an [NVIDIA Triton Inference Server cluster](https://www.nvidia.com/en-us/ai-data-science/products/triton-inference-server/).  The repository is forked from the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) and includes a Helm chart along with instructions for installing NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on premises or cloud-based Kubernetes cluster.  
+This repository provide a working example of how NGINX Plus Ingress Controller can provide secure external access -as well as load balancing- to an [NVIDIA Triton Inference Server cluster](https://www.nvidia.com/en-us/ai-data-science/products/triton-inference-server/).  The repository is based on forks from both the NVIDIA [Triton Inference Server repo](https://github.com/triton-inference-server/server) and [NGINX Plus Ingress Controller](https://github.com/nginxinc/kubernetes-ingress). The repo includes a Helm chart along with instructions for installing a scalable NVIDIA Triton Inference Server and NGINX+ Ingress Controller in an on premises or cloud-based Kubernetes cluster.  
 
 <img src="images/archdiag.png" alt="Flowers" >
 
