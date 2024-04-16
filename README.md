@@ -38,7 +38,7 @@ If you already have a model repository, you may use that with this Helm chart. I
 model repository:
 
 Triton Server needs a repository of models that it will make available for inferencing. For this example, we are using an existing NFS server and placing our model files there.  Copy the local _model_repository_ directory onto your NFS server.  Then, add the url or IP address of your NFS server and the server path of your
-model repository to `values.yaml`.  
+model repository to `deploy/values.yaml`.  
 
 If you do not have an NFS currently available, you can deploy a NFS server (k8s manifest) which may be deployed and loaded with the included model repository.
 ```
@@ -73,32 +73,32 @@ helm install example-metrics --set prometheus.prometheusSpec.serviceMonitorSelec
 ```
 
 ### Enable Autoscaling
-To enable autoscaling, ensure that autoscaling tag in `values.yaml`is set to `true`.
+To enable autoscaling, ensure that autoscaling tag in `deploy/values.yaml`is set to `true`.
 This will do two things:
 
 1. Deploy a Horizontal Pod Autoscaler that will scale replicas of the triton-inference-server
-based on the information included in `values.yaml`.
+based on the information included in `deploy/values.yaml`.
 
 2. Install the [prometheus-adapter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-adapter) helm chart, allowing the Horizontal Pod Autoscaler to scale
 based on custom metrics from prometheus.
 
 The included configuration will scale Triton pods based on the average queue time,
 as described in [this blog post](https://developer.nvidia.com/blog/deploying-nvidia-triton-at-scale-with-mig-and-kubernetes/#:~:text=Query%20NVIDIA%20Triton%20metrics%20using%20Prometheus). To customize this,
-you may replace or add to the list of custom rules in `values.yaml`. If you change
+you may replace or add to the list of custom rules in `deploy/values.yaml`. If you change
 the custom metric, be sure to change the values in autoscaling.metrics.
 
 If autoscaling is disabled, the number of Triton server pods is set to the minReplicas
-variable in `values.yaml`.
+variable in `deploy/values.yaml`.
 
 #### Updating the `values.yaml` file
-Before deploying the Inference server and NGINX+ Ingress Controller update the `values.yaml` specifying your modelRepositoryServer IP and path (*default is '/'*), service FQDNs, and autoscaling preference, (see below).
+Before deploying the Inference server and NGINX+ Ingress Controller update the `deploy/values.yaml` specifying your modelRepositoryServer IP and path (*default is '/'*), service FQDNs, and autoscaling preference, (see below).
 
 <img src="images/img1.png" alt="Flowers" width="60%">
 
 ### Deploy the Inference Server
-Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.  With the `values.yaml` file updated, you are ready to deploy the Helm Chart.
+Deploy the inference server and NGINX Plus Ingress Controller using the default configuration with the following commands. Here, and in the following commands we use the name _mytest_ for our chart. This name will be added to the beginning of all resources created during the helm installation.  With the `deploy/values.yaml` file updated, you are ready to deploy the Helm Chart.
 ```
-cd <directory containing Chart.yaml>
+cd <directory containing Chart.yaml>/deploy
 helm install mytest .
 ```
 Use kubectl to see status and wait until the inference server pods are running.
