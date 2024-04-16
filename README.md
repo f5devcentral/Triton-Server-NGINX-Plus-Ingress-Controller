@@ -134,13 +134,15 @@ password=prom-operator to log in.
 
 An example Grafana dashboard is available -*dashboard.json*- in the repo. Use the
 import function in Grafana to import and view this dashboard, (see below).
+
 <img src="images/img3.png" alt="Flowers" width="60%">
 
 Enable port forwarding from the /NGINX Ingress Controller pod to view service access metrics.
 ```
 kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
 ```
-The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html, (see below)
+The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html, (see below).
+
 <img src="images/img2.png" alt="Flowers" width="60%">
 
 ### Run a couple sample queries
