@@ -135,7 +135,7 @@ password=prom-operator to log in.
 An example Grafana dashboard is available -*dashboard.json*- in the repo. Use the
 import function in Grafana to import and view this dashboard, (see below).
 
-<img src="images/img3.png" alt="Flowers" width="75%">
+<img src="images/img3.png" alt="Flowers">
 
 Enable port forwarding from the /NGINX Ingress Controller pod to view service access metrics.
 ```
@@ -143,7 +143,7 @@ kubectl port-forward *<NGINX ingress controller pod name>* 8080:8080
 ```
 The NGINX+ dashboard can be reached at 127.0.0.1/dashboard.html, (see below).
 
-<img src="images/img2.png" alt="Flowers" width="75%">
+<img src="images/img2.png" alt="Flowers">
 
 ### Run a couple sample queries
 If the included sample models are loaded, you can test connectivity to the Triton Inference server(s) by running the included  *simple_http_infer_client.py* python script.  After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
