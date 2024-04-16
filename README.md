@@ -36,7 +36,9 @@ If you already have a model repository, you may use that with this Helm chart. I
 model repository:
 
 Triton Server needs a repository of models that it will make available for inferencing. For this example, we are using an existing NFS server and placing our model files there.  Copy the local _model_repository_ directory onto your NFS server.  Then, add the url or IP address of your NFS server and the server path of your
-model repository to `values.yaml`.  If you do not have an available, a NFS server (k8s manifest) is included which may be deployed and loaded with the included model repository.
+model repository to `values.yaml`.  
+
+If you do not have an available, a NFS server (k8s manifest) is included which may be deployed and loaded with the included model repository.
 ```
 cd Triton-Server-NGINX-Plus-Ingress-Controller
 kubectl apply -f nfs-server.yaml
