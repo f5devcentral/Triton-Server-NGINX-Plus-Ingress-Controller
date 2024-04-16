@@ -148,7 +148,7 @@ If the included sample models are loaded, you can test connectivity to the Trito
 ```
 python3 simple_http_infer_client.py -u *<triton server http URL>> --ssl --insecure
 
-*Example: python3 simple_http_infer_client.py -u triton-http.f5demo.net --ssl --insecure*
+_Example: python3 simple_http_infer_client.py -u triton-http.f5demo.net --ssl --insecure_
 ```
 After running the script a few times, you can return to the NGINX+ and Grafana dashboards to monitor.
 
