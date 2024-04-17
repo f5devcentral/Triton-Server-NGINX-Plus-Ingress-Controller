@@ -157,7 +157,7 @@ _**Example:** python3 simple_http_infer_client.py -u triton-http.f5demo.net --ss
 
 ## Cleanup
 
-After you have finished using the inference server, you should use Helm and kubectl to
+After you have finished using the inference server, you can use Helm and kubectl to
 delete the deployment.
 
 ```
