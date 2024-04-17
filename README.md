@@ -17,7 +17,7 @@ This will allow the horizontal pod autoscaler to read custom metrics from the pr
 
 Want to get a feel for it before putting hands to keys?  Here is [Deployment Walkthrough Video]
 
-<img src="images/img4.png" alt="Flowers" size="50%" >
+[<img src="images/img4.png" alt="Flowers" size="25%" >](https://youtu.be/cVaLANuvdNk)
 
 # Deployment Instructions
 
