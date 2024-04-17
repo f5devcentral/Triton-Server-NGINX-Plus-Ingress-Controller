@@ -15,7 +15,7 @@ This guide assumes you already have Helm installed (see [Installing Helm](#insta
 enabled](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 This will allow the horizontal pod autoscaler to read custom metrics from the prometheus adapter.
 
-Want to get a feel for it before putting hands to keys?  Here is a [Deployment Walkthrough Video](https://youtu.be/cVaLANuvdNk){:target="_blank"}.
+Want to get a feel for it before putting hands to keys?  Here is a [Deployment Walkthrough Video](https://youtu.be/cVaLANuvdNk).
 
 # Deployment Instructions
 
