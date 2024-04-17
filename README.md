@@ -166,10 +166,7 @@ NAME             NAMESPACE   REVISION    UPDATED                                
 example-metrics  default     1           2024-04-15 18:56:42.479571 -0700 PDT    deployed    kube-prometheus-stack-58.1.3    v0.73.
 mytest           default     1           2024-04-15 19:01:31.772857 -0700 PDT    deployed    triton-inference-server-1.0.0   1.0        
 
-helm uninstall mytest 
-helm uninstall example-metrics
-
+helm uninstall example-metrics mytest
 kubectl delete -f nfs-server.yaml
-kubectl delete secret tls-secret
-kubectl delete secret regcred
+kubectl delete secret tls-secret regcred
 ```
