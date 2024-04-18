@@ -27,6 +27,7 @@
 global:
   name: "triton-inference-server"
 
+# Update below FQDNs to match your environment
 tags:
   autoscaling: true
   http_fqdn: "triton-http.f5demo.net"
