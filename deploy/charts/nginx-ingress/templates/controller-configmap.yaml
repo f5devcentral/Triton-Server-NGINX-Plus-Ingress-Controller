@@ -13,6 +13,7 @@ metadata:
 data:
 {{ toYaml (default dict .Values.controller.config.entries) | indent 2 }}
 {{- end }}
+
 ---
 {{- if and .Values.nginxAgent.enable (eq (.Values.nginxAgent.customConfigMap | default "") "") }}
 apiVersion: v1

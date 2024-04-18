@@ -1,0 +1,17 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: {{ .Values.tags.metrics_fqdn }}
+spec:
+  host: {{ .Values.tags.metrics_fqdn }}
+  tls:
+    secret: tls-secret
+  gunzip: on
+  upstreams:
+  - name: triton-metrics
+    service: {{ template "triton-inference-server.fullname" . }}
+    port: 8000
+  routes:
+  - path: /
+    action:
+      pass: triton-metrics

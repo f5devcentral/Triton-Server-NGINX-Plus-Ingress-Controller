@@ -1,0 +1,17 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: {{ .Values.tags.grpc_fqdn }}
+spec:
+  host: {{ .Values.tags.grpc_fqdn }}
+  tls:
+    secret: tls-secret
+  upstreams:
+  - name: triton-grpc
+    service: {{ template "triton-inference-server.fullname" . }}
+    port: 8001
+    type: grpc
+  routes:
+  - path: /
+    action:
+      pass: triton-grpc

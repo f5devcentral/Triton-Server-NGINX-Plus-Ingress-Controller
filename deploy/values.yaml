@@ -32,7 +32,6 @@ tags:
   http_fqdn: "triton-http.f5demo.net"
   grpc_fqdn: "triton-grpc.f5demo.net"
   metrics_fqdn: "triton-metrics.f5demo.net"
-  sys_metrics_fqdn: "triton.metrics.f5demo.net"
   
 image:
   imageName: nvcr.io/nvidia/tritonserver:24.03-py3

@@ -1,0 +1,17 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: {{ .Values.tags.http_fqdn }}
+spec:
+  host: {{ .Values.tags.http_fqdn }}
+  tls:
+    secret: tls-secret
+  gunzip: on
+  upstreams:
+  - name: triton-http
+    service: {{ template "triton-inference-server.fullname" . }}
+    port: 8000
+  routes:
+  - path: /
+    action:
+      pass: triton-http

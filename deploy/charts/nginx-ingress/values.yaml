@@ -101,7 +101,8 @@ controller:
     annotations: {}
 
     ## The entries of the ConfigMap for customizing NGINX configuration.
-    entries: {}
+    entries:
+      http2: "true"
 
   ## It is recommended to use your own TLS certificates and keys
   defaultTLS:
