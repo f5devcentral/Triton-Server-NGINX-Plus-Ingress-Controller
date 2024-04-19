@@ -50,8 +50,7 @@ Connect to the NFS server pod, clone the repo onto the container and move the mo
 ``` _
 kubectl exec <nfs-server POD name> --stdin --tty -- /bin/bash
 yum install git wget
-cd /
-
+git clone https://github.com/f5devcentral/Triton-Server-NGINX-Plus-Ingress-Controller.git
 mv /Triton-Server-NGINX-Plus-Ingress-Controller/model_repository /exports
 exit
 ```
