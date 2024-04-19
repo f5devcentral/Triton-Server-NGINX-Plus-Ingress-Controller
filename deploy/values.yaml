@@ -37,7 +37,7 @@ tags:
 image:
   imageName: nvcr.io/nvidia/tritonserver:24.03-py3
   pullPolicy: IfNotPresent
-  modelRepositoryServer: 10.0.194.248
+  modelRepositoryServer: 10.0.200.212
   modelRepositoryPath: /
 
 
