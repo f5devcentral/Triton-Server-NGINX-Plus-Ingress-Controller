@@ -38,12 +38,16 @@ kind: Service
 metadata:
   name: nfs-service
 spec:
+  type: NodePort
   ports:
   - name: nfs
     port: 2049
+    targetPort: 2049
   - name: mountd
     port: 20048
+    targetPort: 20048
   - name: rpcbind
     port: 111
+    targetPort: 111
   selector:
     app: nfs-server # must match with the label of NFS pod

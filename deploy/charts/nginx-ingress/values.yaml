@@ -1,6 +1,9 @@
 controller:
   ## The name of the Ingress Controller daemonset or deployment.
   name: controller
+  
+  ## Update the image name to reflect licensed modules, (i.e. NAP, DOS)
+  repo_image: private-registry.nginx.com/nginx-ic-nap-dos/nginx-plus-ingress:3.5.0
 
   ## The kind of the Ingress Controller installation - deployment or daemonset.
   kind: deployment
@@ -72,7 +75,7 @@ controller:
 
   ## A list of custom ports to expose on the NGINX Ingress Controller pod. Follows the conventional Kubernetes yaml syntax for container ports.
   customPorts: []
-
+  
   image:
     ## The image repository of the Ingress Controller.
     repository: nginx/nginx-ingress
@@ -415,7 +418,7 @@ controller:
 
     ## The name of the secret containing docker registry credentials.
     ## Secret must exist in the same namespace as the helm release.
-    imagePullSecretName: ""
+    imagePullSecretName: "regcred"
 
     ## A list of secret names containing docker registry credentials.
     ## Secrets must exist in the same namespace as the helm release.
