@@ -23,15 +23,6 @@ spec:
           containerPort: 111
         securityContext:
           privileged: true
-        volumeMounts:
-        - name: models
-          mountPath: /server/docs/examples
-      volumes:
-      - name: models
-        hostPath:
-          path: /data/nfs # store all data in "/data/nfs" directory of the node where it is running
-          type: DirectoryOrCreate # if the directory does not exist then create it
-          
 ---
 apiVersion: v1
 kind: Service
